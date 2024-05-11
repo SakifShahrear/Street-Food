@@ -1,0 +1,63 @@
+html,
+body {
+  height: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.form-signin {
+  max-width: 200px;
+  padding: 1rem;
+
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+
+}
+
+.form-signin input[type="email"] {
+
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-bottom: 5%;
+  border-radius: 5px;
+  max-width: 400px;
+  max-height: 20px;
+
+}
+
+.form-signin input[type="password"] {
+ 
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-bottom: 5%;
+  border-radius: 5px;
+  max-width: 400px;
+  max-height: 20px;
+}
+
+
+
+
+.tog {
+  border: transparent;
+  background: #24484e;
+  border-radius: 50px;
+
+
+}
+
+.mode{
+  padding-top: 10px;
+}
+.google{
+  border: transparent;
+  background: #24484e;
+  border-radius: 50px;
+  float: left;
+  border-width: 60px;
+  height: 40px;
+  width: 40px;
+}

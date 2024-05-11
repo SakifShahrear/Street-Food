@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="../bootstrap-5.3.3-dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../css/test.css">
+    <script src="../js/signup.js"></script>
+    <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body >
+    
+    <div class="container">
+      <div class="row sign">
+        <form action="" class="needs-validation" novalidate>
+          <div class="row">
+              <div class="col-6">
+                  <label for="name"></label>
+                  <input type="text" name="" id="name" class="form-control" required>
+                  <div class="invalid-feedback"> go fuck</div>
+              </div>
+              <div class="col-6">
+                  <label for="nameoi"></label>
+                  <input type="text" name="" id="nameoi" class="form-control" required>
+                  <div class="invalid-feedback"> go fuck</div>
+              </div>
+              <div class="col-6">
+                  <label for="nameol"></label>
+                  <input type="text" name="" id="nameol" class="form-control" required>
+                  <div class="invalid-feedback"> go fuck</div>
+              </div>
+             <input type="submit" value="Submit" class="btn btn-primary">
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+  
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+    </script>
+    
+  </body>
+  </html>
