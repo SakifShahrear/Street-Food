@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container align-content-center">
-        <form action="" class="needs-validation" novalidate>
+        <form action="/forget" class="needs-validation" novalidate method="post">
             <div class="row" style="">
                 
                 <div class="col">
@@ -23,17 +23,17 @@
                 <div class="col-md">
     
                   <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com" required>
+                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="name@example.com" name="email" required>
                     <label for="floatingInputGrid">Email address</label>
                   </div>
                   <div class="invalid-feedback">Please fill the entity</div>
                 </div>
                 <div class="col-md">
                   <div class="form-floating">
-                    <select class="form-select" id="floatingSelectGrid">
+                    <select class="form-select" id="floatingSelectGrid" name="acctype">
                       <option selected>Select Account</option>
-                      <option value="1">User</option>
-                      <option value="2">Seller</option>
+                      <option value="user">User</option>
+                      <option value="Seller">Seller</option>
                     
                     </select>
                     <label for="floatingSelectGrid">Choose Account</label>
