@@ -2,7 +2,7 @@ import { Router } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { sendResetLinkEmail } from '../services/emailService.js';
-import { generateToken } from '../utils/otp.js';
+import { generateToken } from './token.js';
 
 const router = Router();
 const __filename = fileURLToPath(import.meta.url);

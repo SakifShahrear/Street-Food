@@ -3,16 +3,16 @@ import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'your-email@gmail.com',
-    pass: 'your-email-password'
+    user: 'hemalhemal787@gmail.com',
+    pass: 'cidenssaryqoutbf'
   }
 });
 
 export const sendResetLinkEmail = (email, token) => {
-  const resetLink = `http://your-domain.com/reset-password?token=${token}`;
+  const resetLink = `http://localhost:3000/forget/reset-password?token=${token}`;
 
   const mailOptions = {
-    from: 'your-email@gmail.com',
+    from: 'hemalhemal787@gmail.com',
     to: email,
     subject: 'Password Reset Link',
     text: `Click the link to reset your password: ${resetLink}`
