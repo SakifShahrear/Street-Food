@@ -55,6 +55,100 @@
   </header>
 <!--Main Page -->
 
+<!--Food item -->
+
+
+    <main>
+        <div class="text-center mt-5">
+            <h1>Items of Food Today: <span id="food-count">0</span></h1>
+        </div>
+        <div class="album py-5 bg-body-tertiary">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="food-list">
+                    <!-- Food cards will be dynamically added here -->
+                </div>
+                <!-- Pagination for Food List -->
+                <div class="bd-example-snippet bd-code-snippet mt-4">
+                    <div class="bd-example m-0 border-0">
+                        <nav aria-label="Pagination example">
+                            <ul class="pagination pagination-lg flex-wrap justify-content-center" id="food-pagination">
+                                <!-- Pagination items will be dynamically added here -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+
+<!--review history  -->
+<main>
+  <div class="text-center">
+    <h1>Review History</h1>
+  </div>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3" id="review-history">
+        <!-- Review cards will be dynamically added here -->
+      </div>
+      <!-- Pagination -->
+      <div class="bd-example-snippet bd-code-snippet">
+        <div class="bd-example m-0 border-0">
+          <nav aria-label="Pagination example">
+            <ul class="pagination pagination-lg flex-wrap justify-content-center" id="pagination">
+              <!-- Pagination items will be dynamically added here -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+<main>
+  <div class="text-center mt-5">
+    <h1>Food Blogger List</h1>
+  </div>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Serial No</th>
+              <th>Customer ID</th>
+              <th>Blogger Name</th>
+              <th>Channel Name</th>
+              <th>Video Title</th>
+              <th>Video Description</th>
+              <th>Reply</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="blogger-list">
+            <!-- Blogger rows will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+      <!-- Pagination for Food Blogger List -->
+      <div class="bd-example-snippet bd-code-snippet mt-4">
+        <div class="bd-example m-0 border-0">
+          <nav aria-label="Pagination example">
+            <ul class="pagination pagination-lg flex-wrap justify-content-center" id="blogger-pagination">
+              <!-- Pagination items will be dynamically added here -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
 
 
 
@@ -131,10 +225,22 @@
       </div>
     </div>
   </footer>
+
+
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/vendor.js"></script> <!-- Link to external JavaScript file -->
+
+
+
+
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>

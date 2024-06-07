@@ -1,4 +1,6 @@
 
+
+
 /*about last  Custom CSS for the footer */
 .footer {
     background-color: #2c3e50;
@@ -93,7 +95,92 @@
     color: #3498db;
     transform: scale(1.2);
   }
-  
+  /*nav  */
+
+
+ /* main   */
+ body {
+  background-color: #f8f9fa;
+}/* Rating and Blogging History Section */
+#rating-history .card,
+#blogging-history .card {
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+#rating-history .card:hover,
+#blogging-history .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#rating-history .card-img-top,
+#blogging-history .card-img-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+  height: 180px;
+}
+
+#rating-history .card-body,
+#blogging-history .card-body {
+  padding: 20px;
+}
+
+#rating-history .card-title,
+#blogging-history .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+#rating-history .card-subtitle,
+#blogging-history .card-subtitle {
+  color: #6c757d;
+}
+
+#rating-history .card-text,
+#blogging-history .card-text {
+  margin-bottom: 10px;
+}
+
+/* Pagination */
+.pagination .page-item.disabled .page-link {
+  color: #6c757d;
+}
+
+.pagination .page-item .page-link {
+  color: #007bff;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
+/* Card Styling */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* main   */
+
   /* Footer background decorations */
   .footer::before,
   .footer::after {

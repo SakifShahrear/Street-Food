@@ -13,36 +13,36 @@
 <body>
 
  <!--Nav Bar-->
-<!--Nav Bar-->
-<nav class="py-2 bg-body-tertiary border-bottom">
-    <div class="container d-flex flex-wrap">
-      <ul class="nav me-auto">
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Menu</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Vendors</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">About</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Contact Us</a></li>
+ <nav class="py-2 bg-body-tertiary border-bottom">
+  <div class="container d-flex flex-wrap">
+    <ul class="nav me-auto">
+      <li class="nav-item"><a href="./home.html" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Menu</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Vendors</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">About</a></li>
+      <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Contact Us</a></li>
 
+    </ul>
+
+    <div class="dropdown text-end">
+      <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+      </a>
+      <ul class="dropdown-menu text-small" >
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Rating History </a></li>
+        <li><a class="dropdown-item" href="#">Blogging History</a></li>
+
+
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
       </ul>
-
-      <div class="dropdown text-end">
-        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-        </a>
-        <ul class="dropdown-menu text-small" >
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Rating History </a></li>
-          <li><a class="dropdown-item" href="#">Blogging History</a></li>
-
-
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
-        </ul>
-      </div>
-
     </div>
-  </nav>
+
+  </div>
+</nav>
+
   <!--2nd nav bar-->
   <header class="py-3 mb-4 border-bottom">
     <div class="container d-flex flex-wrap justify-content-center">
@@ -55,12 +55,68 @@
       </form>
     </div>
   </header>
+
+<!-- Profile -->
+
+
+
 <!--Main Page -->
+<main>
+  <div class="text-center">
+    <h1>Rating History</h1>
+  </div>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3" id="rating-history">
+        <!-- Rating cards will be dynamically added here -->
+      </div>
+      <!-- Pagination for Rating History -->
+      <div class="bd-example-snippet bd-code-snippet">
+        <div class="bd-example m-0 border-0">
+          <nav aria-label="Pagination example">
+            <ul class="pagination pagination-lg flex-wrap justify-content-center" id="rating-pagination">
+              <!-- Pagination items will be dynamically added here -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <h1>Blogging History</h1>
+  </div>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3" id="blogging-history">
+        <!-- Blog cards will be dynamically added here -->
+      </div>
+      <!-- Pagination for Blogging History -->
+      <div class="bd-example-snippet bd-code-snippet">
+        <div class="bd-example m-0 border-0">
+          <nav aria-label="Pagination example">
+            <ul class="pagination pagination-lg flex-wrap justify-content-center" id="blogging-pagination">
+              <!-- Pagination items will be dynamically added here -->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 
 
 
 
-<!---->
+
+
+<!-- Main Page -->
+
+
+
+
+
+
 <!--Last --><!-- Footer -->
 <footer class="footer">
     <div class="container">
@@ -131,10 +187,18 @@
       </div>
     </div>
   </footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/customer.js"></script> <!-- Link to external JavaScript file -->
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 </html>
