@@ -10,8 +10,9 @@
   <title>Registration Form</title>
 </head>
 <body>
+
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center ">
       <div class="title">Registration Form</div>
       <form class="needs-validation signup" novalidate>
         <div class="row">
@@ -71,6 +72,8 @@
             <input type="text" class="form-control" id="area" placeholder="" required>
             <div class="invalid-feedback">Please enter your area.</div>
           </div>
+            
+          
           <div class="col-12 vendor-field" style="display: none;">
             <label for="stallName" class="form-label">Stall Name</label>
             <input type="text" class="form-control" id="stallName" placeholder="" required>
@@ -81,7 +84,16 @@
             <input type="file" class="form-control" id="stallPic" accept="image/*" required>
             <div class="invalid-feedback">Please upload a picture of your stall.</div>
           </div>
+          <div class="col-12 vendor-field" style="display: none;">
+            <label for="basic-url" class="form-label">Shop Location URL</label>
+              <div class="input-group">
+               <span class="input-group-text" id="basic-addon3">https://google.com/map/</span>
+               <input type="text" class="form-control" required id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+             </div>
+             <div class="form-text" id="basic-addon4">Location for finding you.</div> 
+         </div>
         </div>
+            
 
         <hr class="my-4">
 
@@ -101,6 +113,14 @@
             </div>
           </div>
         </div>
+        
+        <div class="col-12" >
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" required />
+                <label class="form-check-label" for="exampleCheck1">I agree to the <a href="#">terms & Conditions</a></label>
+              </div>
+          </div>
+
 
         <div class="otp-section" style="display: none;">
           <h4 class="mb-3">OTP Verification</h4>
