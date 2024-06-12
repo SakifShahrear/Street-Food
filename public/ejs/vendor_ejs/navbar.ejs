@@ -1,0 +1,72 @@
+<body>
+
+  <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--Nav Bar--><!--Nav Bar-->
+      <nav class="navbar bg-body-tertiary" aria-label="Light offcanvas navbar">
+      <div class="container-fluid">
+        <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
+          <img src="../img/logo_street_food.png" height="50">
+          <span class="fs-4">Street Food Management</span>
+        </a>    
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarLight" aria-controls="offcanvasNavbarLight" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarLight" aria-labelledby="offcanvasNavbarLightLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">Street Food Management</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/vendor/profile">View Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Notification</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Switch account</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Settings
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Forget Password</a></li>
+                  <li><a class="dropdown-item" href="#">Help & Support</a></li>
+                  <li><a class="dropdown-item" href="/vendor/email">Contact</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex mt-3" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav mt-3">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- 2nd Nav Bar -->  
+    <header class="py-3 mb-4 border-bottom">
+      <div class="container d-flex flex-wrap justify-content-center">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search" style="max-width: 700px; width: 100%;">
+          <input type="search" class="form-control" placeholder="Search a stall ...." aria-label="Search">
+        </form>
+      </div>
+    </header>
