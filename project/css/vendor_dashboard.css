@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+
+#dashboard-section {
+  background-image: url('https://source.unsplash.com/random/1920x1080');
+  background-size: cover;
+  background-position: center;
+  padding: 50px 0;
+}
+
+#dashboard-section h1,
+#dashboard-section p {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+* {
+    margin: 10;
+    padding: 10;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+   
+    height: 100%;
+    width: 100%;
+   
+    background: url('https://source.unsplash.com/random/1920x1080') no-repeat center center fixed; 
+    background-size: cover;
+
+  
+    background-image: url(../img/login.jpeg);
+ 
+
+    animation: animate0g 5s linear infinite;
+}
+
+#wrapper {
+    overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: margin 0.25s ease-out;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+.navbar {
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-heading {
+    font-size: 1.5rem;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+}
+
+.list-group-item {
+    background: rgba(255, 255, 255, 0.8);
+    color: #000;
+}
+
+.list-group-item-action:hover {
+    background: rgba(255, 255, 255, 1);
+}
+
+#menu-toggle {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    color: #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#menu-toggle:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #000;
+}
+
+.shadow-card {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px !important;
+    backdrop-filter: blur(20px);
+    box-shadow: 0px 15px 20px rgb(0, 255, 200);
+}
