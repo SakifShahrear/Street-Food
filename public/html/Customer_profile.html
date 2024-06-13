@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Edit Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/Customer_profile.css">
+ 
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="profilePicSection bg-white p-4 mb-3 border rounded text-center">
+                    <img src="../img/Founder/tush.jpg" class="img-fluid rounded-circle mb-3" alt="Customer Profile Pic">
+                    <h4>Customer Name</h4>
+                    <p>Customer ID: 123456</p>
+                    <p>Total Rating to Vendors: 4.5</p>
+                    <p>Total Favourite Food Likes: 10</p>
+                    <p>Total Blog Videos: 5</p>
+                  
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="profileEdit bg-white p-4 mb-3 border rounded">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="user-profile-tab" data-toggle="tab" href="#user-profile" role="tab" aria-controls="user-profile" aria-selected="true">User Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="update-profile-tab" data-toggle="tab" href="#update-profile" role="tab" aria-controls="update-profile" aria-selected="false">Update Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="update-address-tab" data-toggle="tab" href="#update-address" role="tab" aria-controls="update-address" aria-selected="false">Update Address</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="change-password-tab" data-toggle="tab" href="#change-password" role="tab" aria-controls="change-password" aria-selected="false">Change Password</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3" id="myTabContent">
+                        <div class="tab-pane fade show active" id="user-profile" role="tabpanel" aria-labelledby="user-profile-tab">
+                            <h5>Customer Information</h5>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>First Name</label>
+                                    <p>Nahidur</p>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Last Name</label>
+                                    <p>Zaman</p>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Email</label>
+                                    <p>Tushar@gmail.com</p>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Contact Info</label>
+                                    <p>+880 1309529592</p>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label>Address</label>
+                                    <p>123 Street, City, Country</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="update-profile" role="tabpanel" aria-labelledby="update-profile-tab">
+                            <form action="#">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="firstName">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="phoneNumber">Mobile No. <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">+88</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter mobile no." required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Email <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="johndoe@example.com" disabled>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="avatar">Avatar</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="avatar" name="avatar" accept=".png, .jpg, .jpeg">
+                                            <label class="custom-file-label" for="avatar">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-secondary mr-2">Cancel</button>
+                                    <button type="submit" class="btn btn-secondary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="update-address" role="tabpanel" aria-labelledby="update-address-tab">
+                            <form action="#">
+                                <div class="form-group">
+                                    <label for="addressType">Address Type <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="addressType" name="addressType" placeholder="Ex: Home, Office, or Other" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="houseNumber">House#</label>
+                                    <input type="text" class="form-control" id="houseNumber" name="houseNumber" placeholder="Enter house no.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="roadNumber">Road#</label>
+                                    <input type="text" class="form-control" id="roadNumber" name="roadNumber" placeholder="Enter road no.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="blockNumber">Block#</label>
+                                    <input type="text" class="form-control" id="blockNumber" name="blockNumber" placeholder="Enter block no.">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Location</label>
+                                    <input type="text" class="form-control" id="location" name="location" placeholder=" Miprur Dohs , Dhaka, Bangladesh">
+                                </div>
+                                <div class="form-group d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-secondary mr-2">Cancel</button>
+                                    <button type="submit" class="btn btn-secondary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="change-password" role="tabpanel" aria-labelledby="change-password-tab">
+                            <form action="#">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Enter your password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">New Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your new password" required>
+                                </div>
+                                <div class="form-group d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-secondary mr-2">Cancel</button>
+                                    <button type="submit" class="btn btn-secondary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
