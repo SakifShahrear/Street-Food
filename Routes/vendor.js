@@ -172,3 +172,6 @@ module.exports = router;
 router.get('/profile', (req, res) => {
   res.render('vendor_ejs/vendor_profile');
 });
+router.get('/dashbord', (req, res) => {
+  res.render('vendor_ejs/vendor_dashboard');
+});

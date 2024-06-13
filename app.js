@@ -109,10 +109,10 @@ app.get('/home/signup', (req, res) => {
   res.render('login_signup_ejs/signup');
 });
 
-app.get('*', (req, res) => {
-  req.flash('error', 'The route is not valid');
-  res.redirect('/home');
-});
+// app.get('*', (req, res) => {
+//   req.flash('error', 'The route is not valid');
+//   res.redirect('/home');
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
