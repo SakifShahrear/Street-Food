@@ -1,0 +1,130 @@
+/* pp.css */
+
+/* Body background gradient */
+body {
+    background: linear-gradient(135deg, #3494e6, #ec6ead);
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Container styles */
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 30px;
+}
+
+/* Profile picture section */
+.profilePicSection {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.profilePicSection img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.profilePicSection img:hover {
+    transform: scale(1.1);
+}
+
+.profilePicSection h4 {
+    font-size: 1.8rem;
+    margin: 15px 0;
+    color: #333;
+}
+
+.profilePicSection p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Nav tabs */
+.nav-tabs .nav-link {
+    color: #333;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+    color: #ffffff;
+    background-color:  #ec6ead;
+    border-color:  #ffffff;
+}
+
+/* Tab content */
+.tab-pane {
+    padding: 20px 0;
+}
+
+/* Form styles */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 5px;
+    color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.custom-file-label::after {
+    background-color: #ec6ead;
+    color: #fff;
+    border-radius: 5px;
+}
+
+/* Button styles */
+.btn-outline-secondary {
+    border-color: #fff;
+    color: #fff;
+    background-color: transparent;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #fff;
+    color: #ec6ead;
+}
+
+.btn-secondary {
+    background-color: #ec6ead;
+    border-color:  #ec6ead;
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color:  #ec6ead;
+    border-color:  #ec6ead;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .profilePicSection img {
+        width: 120px;
+        height: 120px;
+    }
+}
