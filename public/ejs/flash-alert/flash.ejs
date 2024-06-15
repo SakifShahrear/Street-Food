@@ -24,7 +24,24 @@
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% } %>
-          
+        <% if(foodupdated && foodupdated.length>0){ %>
+          <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong style="text-align: center;"><%= foodupdated %></strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <% } %>
+        <% if(requireLOGIN && requireLOGIN.length>0){ %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong style="text-align: center;"><%= requireLOGIN %></strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <% } %>
+          <% if(logout && logout.length>0){ %>
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+              <strong style="text-align: center;"><%= logout %></strong> 
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% } %>
       <!-- End Example Code -->
     </body>
   </html>

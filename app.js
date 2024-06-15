@@ -1,11 +1,19 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const OracleDB = require('oracledb');
 const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const nodemailer = require('nodemailer');
+const { v4: uuid } = require('uuid');
 
 const vendor = require('./Routes/vendor');
+const { nextTick } = require('process');
+const requirelogin = require('./Routes/requirelogin_middleware');
 
 const app = express();
 const port = 3000;
@@ -29,17 +37,29 @@ app.use(session(sessionConfig));
 app.use(flash());
 
 OracleDB.outFormat = OracleDB.OUT_FORMAT_OBJECT;
-
+///////////////////////////send flash messsages///////////////////////////////////
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   res.locals.complete = req.flash('complete');
   res.locals.sendemail = req.flash('sendemail');
+  res.locals.foodupdated = req.flash('foodupdated');
+  res.locals.requireLOGIN = req.flash('requireLOGIN');
+  res.locals.logout = req.flash('logout');
   next();
 });
+//////////////////////////require login middleware/////////////////////////
+// const requirelogin = (req, res, next) => {
+//   if (!session.user_id) {
+//     res.flash('requireLOGIN', 'please login first');
+//     return res.redirect('/home');
+//   }
+
+//   next();
+// };
 
 app.use('/vendor', vendor);
-
+////////////////////////home page/////////////////////////////
 app.get('/home/login', (req, res) => {
   res.render('login_signup_ejs/login');
 });
@@ -58,9 +78,14 @@ app.post('/home/login', async (req, res) => {
     if (email && password) {
       try {
         const result = await connection.execute(
-          `SELECT PASSWORD FROM MEMBERS WHERE USER_ID = :email`,
+          `SELECT USER_ID,PASSWORD FROM MEMBERS WHERE USER_ID = :email`,
           [email]
         );
+
+        console.log(result);
+        const { USER_ID } = result.rows[0];
+        req.session.user_id = USER_ID;
+        // console.log(session.user_id);
 
         if (result.rows.length > 0) {
           const storedPassword = result.rows[0].PASSWORD;
@@ -109,10 +134,49 @@ app.get('/home/signup', (req, res) => {
   res.render('login_signup_ejs/signup');
 });
 
-// app.get('*', (req, res) => {
-//   req.flash('error', 'The route is not valid');
-//   res.redirect('/home');
+// app.get('/email', requirelogin, async (req, res) => {
+//   const nodemailer = require('nodemailer');
+
+//   const transporter = nodemailer.createTransport({
+//     host: process.env.Email_host,
+//     port: process.env.Email_host,
+//     secure: false, // Use `true` for port 465, `false` for all other ports
+//     auth: {
+//       user: process.env.Email_username,
+//       pass: process.env.Email_password,
+//     },
+//   });
+
+//   // async..await is not allowed in global scope, must use a wrapper
+//   async function main() {
+//     // send mail with defined transport object
+//     const info = await transporter.sendMail({
+//       from: 'street_food.io', // sender address
+//       to: 'hemalhemal787@gmail.com', // list of receivers
+//       subject: 'forgret password', // Subject line
+//       title: 'the forget pass of' + uuid(),
+//       text: 'your foget code is :' + uuid(), // plain text body
+//       html: false, // html body
+//     });
+
+//     console.log('Message sent: %s', info.messageId);
+//     // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+//   }
+
+//   main().catch(console.error);
 // });
+
+//////////////////////for any invalid route////////////////////////
+app.get('*', (req, res) => {
+  req.flash('error', 'The route is not valid');
+  res.redirect('/home');
+});
+
+////////////////////export required login middleware////////////////////////////////////
+
+module.exports = app;
+
+/////////////////////////////////////////////////////////////////
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

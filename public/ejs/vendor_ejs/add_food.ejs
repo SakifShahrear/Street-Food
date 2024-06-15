@@ -46,44 +46,42 @@ padding-bottom: 80px;
 
     <!-- .............card.................... -->
     <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Add Food</h5>
-                <form action="http://localhost:3000/vendor/add_food" class="needs-validation" method="post" novalidate>
-                  <div class="mb-3">
-                    <label for="foodtitle" class="form-label">Enter the food title</label>
-                    <input type="text" class="form-control" id="foodtitle" name="name" required />
-                    <div class="invalid-feedback">Please enter the food title.</div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Add Food</h5>
+              <form action="http://localhost:3000/vendor/add_food" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                <div class="mb-3">
+                  <label for="foodtitle" class="form-label">Enter the food title</label>
+                  <input type="text" class="form-control" id="foodtitle" name="name" required />
+                  <div class="invalid-feedback">Please enter the food title.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="price" class="form-label">Price</label>
+                  <input type="text" class="form-control" id="price" name="price" required />
+                  <div class="invalid-feedback">Please enter the price.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="image" class="form-label">Choose the img path</label>
+                  <div class="input-group">
+                    <input class="form-control form-control-sm" id="image" type="file" name="image" aria-describedby="basic-addon4" required>
                   </div>
-                  <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input type="text" class="form-control" id="price" name="price" required />
-                    <div class="invalid-feedback">Please enter the price.</div>
+                  <div class="form-text" id="basic-addon4">img only.</div>
+                  <div class="invalid-feedback">Please choose an image file.</div>
+                </div>
+                <div class="row">
+                  <div class="col-12"> <!-- Full-width column -->
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Submit</button> <!-- Full-width button -->
                   </div>
-                  <div class="mb-3">
-                    <label for="imageFile" class="form-label">Choose the img path</label>
-                    <div class="input-group">
-                
-                      <input class="form-control form-control-sm" id="imageFile" type="file" name="imageFile" aria-describedby="basic-addon3 basic-addon4" required>
-                    </div>
-                    <div class="form-text" id="basic-addon4">img only.</div>
-                    <div class="invalid-feedback">Please choose an image file.</div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col-12"> <!-- Full-width column -->
-                      <button type="submit" class="btn btn-primary btn-lg w-100">Submit</button> <!-- Full-width button -->
-                    </div>
-                  </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      
+    </div>
+    
 
 <!-- .................js for check vailadtor............... -->
 

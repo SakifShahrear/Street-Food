@@ -23,6 +23,7 @@
             background-color: #f0f0f0;
         }
     </style>
+
 </head>
 <body>
     <h1>Geoapify Autocomplete with Map and Directions Example</h1>
@@ -30,10 +31,6 @@
     <input type="text" id="locationInput" placeholder="Enter a location...">
     <div id="suggestions"></div>
     <div id="map"></div>
-    <div>
-        <label for="showPathCheckbox">Show Path:</label>
-        <input type="checkbox" id="showPathCheckbox" checked>
-    </div>
 
     <script>
         var map = L.map('map').setView([0, 0], 2); // Initialize map with a default view

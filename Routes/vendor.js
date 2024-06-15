@@ -5,6 +5,10 @@ const methodOverride = require('method-override');
 const { v4: uuid } = require('uuid');
 const { Console } = require('console');
 const https = require('https');
+const multer = require('multer');
+const { storage } = require('./cloudinary');
+const upload = multer({ storage });
+const requirelogin = require('./requirelogin_middleware');
 
 let foodData = [
   {
@@ -51,7 +55,7 @@ let foodData = [
   },
 ];
 /////////////////////for vendors home page//////////////////////////
-router.get('/', (req, res) => {
+router.get('/', requirelogin, (req, res) => {
   const currentPage = req.query.page || 1; // Get current page from query parameter
   console.log(currentPage);
   const itemsPerPage = 6; // Number of items per page
@@ -69,26 +73,29 @@ router.get('/', (req, res) => {
     currentPage,
   });
 });
-/////////////////////for vendor add food update//////////////////////////
-router.get('/add_food', (req, res) => {
+/////////////////////for vendor add food //////////////////////////
+
+router.get('/add_food', requirelogin, (req, res) => {
   console.log('it working');
   res.render('vendor_ejs/add_food');
 });
 
-router.post('/add_food', (req, res) => {
-  console.log('it working');
-  console.log(req.body);
-  const { F_id, name, price, imageUrl } = req.body;
+router.post('/add_food', requirelogin, upload.single('image'), (req, res) => {
+  // console.log('it working');
+  // console.log(req.body, req.file);
+  const { F_id, name, price } = req.body;
+  const { path, originalname } = req.file;
+  console.log(path);
 
-  foodData.push({ F_id: uuid(), name, price, imageUrl });
+  foodData.push({ F_id: uuid(), price, imageUrl: path, originalname });
   req.flash('complete', 'New item is added');
-  console.log(foodData);
+  // console.log(foodData);
   res.redirect('/vendor');
 });
 
 /////////////////////for vendor udate food //////////////////////////
 
-router.get('/update/:id', (req, res) => {
+router.get('/update/:id', requirelogin, (req, res) => {
   // Handle GET request for /vendor/update/:id
   const id = req.params.id;
   // You might render a form here for editing the vendor information
@@ -97,81 +104,103 @@ router.get('/update/:id', (req, res) => {
   res.render('vendor_ejs/update_food', { findfoodData });
 });
 
-router.patch('/update/:id', (req, res) => {
-  const { id } = req.params;
+router.patch(
+  '/update/:id',
+  requirelogin,
+  upload.single('image'),
+  (req, res) => {
+    const { id } = req.params;
 
-  let findfoodData = foodData.findIndex((c) => c.F_id === id);
-  const newfoodData = req.body;
+    let findfoodData = foodData.findIndex((c) => c.F_id === id);
+
+    const { F_id, name, price } = req.body;
+    console.log(req.body);
+    const { path, originalname } = req.file;
+    const newfoodData = { F_id, name, price, imageUrl: path, originalname };
+    console.log(newfoodData);
+    foodData[findfoodData] = newfoodData;
+    req.flash('foodupdated', 'Food item updated successfully!');
+
+    res.redirect('/vendor');
+  }
+);
+
+/////////////////////for vendor email//////////////////////////
+router.get('/email', requirelogin, (req, res) => {
+  res.render('vendor_ejs/email');
+});
+
+router.post('/email', async (req, res) => {
+  const nodemailer = require('nodemailer');
   console.log(req.body);
-  foodData[findfoodData] = newfoodData;
+  const { email_id, email_text } = req.body;
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.Email_host,
+    port: process.env.Email_host,
+    secure: false, // Use `true` for port 465, `false` for all other ports
+    auth: {
+      user: process.env.Email_username,
+      pass: process.env.Email_password,
+    },
+  });
+  try {
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+      from: process.env.Email_username, // sender address (must match the authenticated user)
+      to: email_id, // list of receivers
+      subject: 'Forgot Password', // Subject line
+      text: `Your forget code is: ${uuid()} ${email_text}`, // plain text body
+      // html: undefined, // Set HTML body if needed
+    });
+
+    console.log('Message sent: %s', info.messageId);
+    req.flash('sendemail', 'Thank you, your email has been submitted to Admin');
+    return res.redirect('/vendor');
+  } catch (error) {
+    console.error(error);
+    req.flash(
+      'sendemail',
+      'There was an error sending your email. Please try again.'
+    );
+    return res.redirect('/vendor');
+  }
+});
+//////////////////////////////////////add food//////////////////////
+router.get('/add_food', requirelogin, (req, res) => {
+  console.log('it working');
+  res.render('vendor_ejs/add_food');
+});
+
+router.post('/add_food', requirelogin, upload.single('image'), (req, res) => {
+  console.log('POST /add_food');
+  console.log(req.body, req.file);
+
+  if (!req.file) {
+    req.flash('error', 'File not uploaded');
+    return res.redirect('/vendor/add_food');
+  }
+
+  // The URL of the uploaded image
+  const imageUrl = req.file.path; // or req.file.path (depending on multer-storage-cloudinary version)
+  console.log(`Image URL: ${imageUrl}`);
+
+  const { name, price } = req.body;
+  foodData.push({ F_id: uuid(), name, price, imageUrl });
+
+  req.flash('complete', 'New item is added');
   res.redirect('/vendor');
 });
 
-/////////////////////for vendor email//////////////////////////
-
-router.get('/email', (req, res) => {
-  res.render('vendor_ejs/email', { foodData: foodData[1] });
-});
-
-router.post('/email', (req, res) => {
-  const { email_id, email_text } = req.body;
-  console.log(req.body);
-
-  const options = {
-    method: 'POST',
-    hostname: 'mail-sender-api1.p.rapidapi.com',
-    port: null,
-    path: '/',
-    headers: {
-      'x-rapidapi-key': 'a4de8942bbmsh79180a6157dc5a8p17c957jsn73c9cce26c02',
-      'x-rapidapi-host': 'mail-sender-api1.p.rapidapi.com',
-      'Content-Type': 'routerlication/json',
-    },
-  };
-
-  const apiReq = https.request(options, function (apiRes) {
-    const chunks = [];
-
-    apiRes.on('data', function (chunk) {
-      chunks.push(chunk);
-    });
-
-    apiRes.on('end', function () {
-      const body = Buffer.concat(chunks).toString();
-      console.log(body);
-      if (apiRes.statusCode === 200) {
-        req.flash('sendemail', 'email has been sended');
-        res.redirect('/vendor');
-      } else {
-        res.status(apiRes.statusCode).send(body);
-      }
-    });
-  });
-
-  apiReq.write(
-    JSON.stringify({
-      sendto: email_id,
-
-      body: 'your foget code is :' + uuid(),
-      name: 'Custom Name', // If necessary, these fields can be hardcoded or set to default values
-      replyTo: 'shahriar12688@gmail.com', // Replace with a default reply-to address
-      ishtml: 'false', // Set this to 'true' if you want to send HTML emails
-      title: 'Default Title', // Replace with a default title if needed
-    })
-  );
-
-  apiReq.on('error', (e) => {
-    console.error(e);
-    res.status(500).send('An error occurred while sending the email');
-  });
-
-  apiReq.end();
-});
-module.exports = router;
 //////////////////////////////////vendor profile////////////////////////////
-router.get('/profile', (req, res) => {
+router.get('/profile', requirelogin, (req, res) => {
   res.render('vendor_ejs/vendor_profile');
 });
-router.get('/dashbord', (req, res) => {
-  res.render('vendor_ejs/vendor_dashboard');
+//////////////////////////////////vendor logout/////////////////////////////
+router.post('/logout', requirelogin, (req, res) => {
+  req.session.user_id = null;
+  req.flash('logout', 'successfully logout');
+  res.redirect('/home');
 });
+/////////////////////////////////export Router/////////////////////////////
+module.exports = router;
