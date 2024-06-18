@@ -24,7 +24,7 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'public', 'ejs'));
 app.set('view engine', 'ejs');
-
+var mode = 'light';
 const sessionConfig = {
   secret: 'hey buddy',
   resave: false,
@@ -57,11 +57,35 @@ app.use((req, res, next) => {
 
 //   next();
 // };
+///////////////////////////mode//////////////////////////////////
+// Middleware to attach mode to res.locals
+app.use((req, res, next) => {
+  res.locals.mode = req.session.mode || 'light';
+  next();
+});
+app.post('/home', (req, res) => {
+  req.session.mode = req.body.mode;
+
+  // For debugging: Log the mode to the console
+  console.log('Mode switched to:', req.session.mode);
+
+  // Redirect to home or another page after setting the mode
+  res.redirect('/home'); // Adjust the redirection URL as needed
+});
+///////////////////////////home///////////////////////////////////////
+app.get('/home', (req, res) => {
+  res.render('home/home');
+});
+
+app.get('/home/signup', (req, res) => {
+  res.render('login_signup_ejs/signup');
+});
 
 app.use('/vendor', vendor);
 ////////////////////////home page/////////////////////////////
 app.get('/home/login', (req, res) => {
-  res.render('login_signup_ejs/login');
+  console.log(mode);
+  res.render('login_signup_ejs/login', { mode });
 });
 
 app.post('/home/login', async (req, res) => {
@@ -128,14 +152,6 @@ app.post('/home/login', async (req, res) => {
   }
 });
 
-app.get('/home', (req, res) => {
-  res.render('home/home');
-});
-
-app.get('/home/signup', (req, res) => {
-  res.render('login_signup_ejs/signup');
-});
-
 // app.get('/email', requirelogin, async (req, res) => {
 //   const nodemailer = require('nodemailer');
 
@@ -176,7 +192,7 @@ app.get('*', (req, res) => {
 
 ////////////////////export required login middleware////////////////////////////////////
 
-module.exports = app;
+// module.exports = { app, mode };
 
 /////////////////////////////////////////////////////////////////
 
