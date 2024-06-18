@@ -74,18 +74,20 @@ app.post('/home/login', async (req, res) => {
     });
 
     const { email, password } = req.body;
+    console.log(email);
 
     if (email && password) {
       try {
         const result = await connection.execute(
-          `SELECT USER_ID,PASSWORD FROM MEMBERS WHERE USER_ID = :email`,
-          [email]
+          `SELECT EMAIL,USER_ID, PASSWORD FROM USERS WHERE USER_ID = :email OR EMAIL = :email`,
+          [email, email]
         );
 
         console.log(result);
-        const { USER_ID } = result.rows[0];
+        const [{ EMAIL, USER_ID }] = result.rows;
+        console.log(EMAIL);
         req.session.user_id = USER_ID;
-        // console.log(session.user_id);
+        console.log(req.session.user_id);
 
         if (result.rows.length > 0) {
           const storedPassword = result.rows[0].PASSWORD;
