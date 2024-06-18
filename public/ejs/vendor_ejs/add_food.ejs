@@ -35,6 +35,9 @@ padding-bottom: 80px;
     input.form-control {
         width: 100%;
     }
+    .row{
+    padding-bottom: 20PX;
+    }
 </style>
 </head>
 <body>
@@ -47,11 +50,23 @@ padding-bottom: 80px;
     <!-- .............card.................... -->
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-6"> 
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Add Food</h5>
               <form action="http://localhost:3000/vendor/add_food" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                <div class="row">
+                  <div class="col">
+                    <label for="availability" class="form-label">Available Status</label>
+                    <select class="form-select form-select-lg mb-3 acctype" aria-label="Large select example" required id="availability" name="availability">
+                      <option selected disabled>Status</option>
+                      <option  value="Yes">Yes</option>
+                      <option value="No">NO</option>
+                    </select>
+                    <div class="invalid-feedback">Please set the available staus.</div>
+                  </div>
+                </div>
+                
                 <div class="mb-3">
                   <label for="foodtitle" class="form-label">Enter the food title</label>
                   <input type="text" class="form-control" id="foodtitle" name="name" required />
@@ -70,6 +85,12 @@ padding-bottom: 80px;
                   <div class="form-text" id="basic-addon4">img only.</div>
                   <div class="invalid-feedback">Please choose an image file.</div>
                 </div>
+                <div class="row"><div class="col-12">
+                  <div class="input-group" >
+                    <span class="input-group-text">Share the ingredient </span>
+                    <textarea class="form-control" aria-label="With textarea" name="ingredient"></textarea>
+                  </div>
+                </div></div>
                 <div class="row">
                   <div class="col-12"> <!-- Full-width column -->
                     <button type="submit" class="btn btn-primary btn-lg w-100">Submit</button> <!-- Full-width button -->
@@ -103,4 +124,5 @@ padding-bottom: 80px;
             }, false);
         })();
     </script>
+    <script src="../bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 <%- include('footer') %>

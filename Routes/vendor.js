@@ -9,6 +9,10 @@ const multer = require('multer');
 const { storage } = require('./cloudinary');
 const upload = multer({ storage });
 const requirelogin = require('./requirelogin_middleware');
+const OracleDB = require('oracledb');
+
+const dbConfig = require('./dbConfig');
+const { constrainedMemory } = require('process');
 
 let foodData = [
   {
@@ -54,6 +58,13 @@ let foodData = [
     imageUrl: '../img/signup.jpeg',
   },
 ];
+/////////////////////////////////dark_mode////////////////////////
+router.post('/navbar', (req, res) => {
+  req.session.mode = req.body.mode;
+  console.log(req.body.mode);
+  res.redirect('/vendor');
+});
+
 /////////////////////for vendors home page//////////////////////////
 router.get('/', requirelogin, (req, res) => {
   const currentPage = req.query.page || 1; // Get current page from query parameter
@@ -80,18 +91,44 @@ router.get('/add_food', requirelogin, (req, res) => {
   res.render('vendor_ejs/add_food');
 });
 
-router.post('/add_food', requirelogin, upload.single('image'), (req, res) => {
-  // console.log('it working');
-  // console.log(req.body, req.file);
-  const { F_id, name, price } = req.body;
-  const { path, originalname } = req.file;
-  console.log(path);
+router.post(
+  '/add_food',
+  requirelogin,
+  upload.single('image'),
+  async (req, res) => {
+    // console.log('it working');
+    console.log(req.body, req.file);
+    const { name, price, rating = 0, ingredient, availability } = req.body;
+    console.log(req.body);
+    const { path } = req.file;
+    let connection;
+    try {
+      connection = await OracleDB.getConnection(dbConfig);
+      const result = await connection.execute(
+        'INSERT INTO Food (food_name,price ,rating,ingredient,availability,Food_pic) values(:name,:price,:rating,:ingredient,:availability,:path)',
+        { name, price, rating, ingredient, availability, path },
+        { autoCommit: true }
+      );
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+      res.send('datbase is not connected');
+    } finally {
+      if (connection) {
+        try {
+          await connection.close();
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
 
-  foodData.push({ F_id: uuid(), price, imageUrl: path, originalname });
-  req.flash('complete', 'New item is added');
-  // console.log(foodData);
-  res.redirect('/vendor');
-});
+    // foodData.push({ F_id: uuid(), price, imageUrl: path, originalname });
+    req.flash('complete', 'New item is added');
+    // console.log(foodData);
+    res.redirect('/vendor');
+  }
+);
 
 /////////////////////for vendor udate food //////////////////////////
 
