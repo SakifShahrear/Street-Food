@@ -12,8 +12,13 @@ const nodemailer = require('nodemailer');
 const { v4: uuid } = require('uuid');
 
 const vendor = require('./Routes/vendor');
+const user = require('./Routes/user');
 const { nextTick } = require('process');
 const requirelogin = require('./Routes/requirelogin_middleware');
+const dbConfig = require('./Routes/dbConfig');
+const multer = require('multer');
+const { storage } = require('./Routes/cloudinary');
+const upload = multer({ storage });
 
 const app = express();
 const port = 3000;
@@ -46,6 +51,13 @@ app.use((req, res, next) => {
   res.locals.foodupdated = req.flash('foodupdated');
   res.locals.requireLOGIN = req.flash('requireLOGIN');
   res.locals.logout = req.flash('logout');
+  res.locals.passwordDontMatch = req.flash('dontMatch');
+  res.locals.userExist = req.flash('userExist');
+
+  res.locals.userCreated = req.flash('userCreated');
+  res.locals.error_upload_video = req.flash('error_upload_video');
+  res.locals.upload_video = req.flash('upload_video');
+
   next();
 });
 //////////////////////////require login middleware/////////////////////////
@@ -61,6 +73,7 @@ app.use((req, res, next) => {
 // Middleware to attach mode to res.locals
 app.use((req, res, next) => {
   res.locals.mode = req.session.mode || 'light';
+  res.locals.id = req.session.user_id;
   next();
 });
 app.post('/home', (req, res) => {
@@ -76,16 +89,91 @@ app.post('/home', (req, res) => {
 app.get('/home', (req, res) => {
   res.render('home/home');
 });
-
+////////////////////////signup//////////////////////////////
 app.get('/home/signup', (req, res) => {
   res.render('login_signup_ejs/signup');
 });
+app.post('/home/signup', upload.single('stallPic'), async (req, res) => {
+  const {
+    accountType,
+    firstName,
+    lastName,
+    email,
+    phone,
+    district,
+    city,
+    location,
+    stallName,
+    shopLocationUrl,
+    password,
+    confirmPassword,
+    terms,
+  } = req.body;
+  const stallPic = req.file ? req.file.path : '';
+
+  console.log(req.body);
+  if (password !== confirmPassword) {
+    req.flash('dontMatch', 'Passwords do not match.');
+    return res.redirect('/home/signup');
+  }
+
+  let connection;
+  try {
+    connection = await OracleDB.getConnection(dbConfig);
+    const resfind_id = await connection.execute(
+      'SELECT USER_ID FROM USERS WHERE EMAIL = :email',
+      { email }
+    );
+    console.log(resfind_id.rows);
+    if (resfind_id.rows.length === 0) {
+      await connection.execute(
+        'INSERT INTO users (ACCOUNT_TYPE, FIRST_NAME, LAST_NAME, EMAIL, PHONE, DISTRICT, CITY, AREA, stallName, stallPic, shopLocationUrl, PASSWORD, TERMS) VALUES (:accountType, :firstName, :lastName, :email, :phone, :district, :city, :location, :stallName, :stallPic, :shopLocationUrl, :password, :terms)',
+        {
+          accountType,
+          firstName,
+          lastName,
+          email,
+          phone,
+          district,
+          city,
+          location,
+          stallName,
+          stallPic,
+          shopLocationUrl,
+          password,
+          terms,
+        },
+        { autoCommit: true }
+      );
+    } else {
+      req.flash('userExist', 'User already exists.');
+      return res.redirect('/home/signup');
+    }
+  } catch (err) {
+    console.error(err);
+    req.flash('error', 'An error occurred during signup.');
+    return res.redirect('/home/signup');
+  } finally {
+    if (connection) {
+      try {
+        await connection.close();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
+  req.flash('userCreated', 'Signup completed, please login.');
+  return res.redirect('/home');
+});
 
 app.use('/vendor', vendor);
+app.use('/user', user);
 ////////////////////////home page/////////////////////////////
+//////////////////login//////////////////
 app.get('/home/login', (req, res) => {
   console.log(mode);
-  res.render('login_signup_ejs/login', { mode });
+  res.render('login_signup_ejs/login');
 });
 
 app.post('/home/login', async (req, res) => {
@@ -98,7 +186,7 @@ app.post('/home/login', async (req, res) => {
     });
 
     const { email, password } = req.body;
-    console.log(email);
+    console.log(req.body);
 
     if (email && password) {
       try {
@@ -117,29 +205,41 @@ app.post('/home/login', async (req, res) => {
           const storedPassword = result.rows[0].PASSWORD;
 
           if (storedPassword === password) {
-            req.flash('success', 'Hello from home');
-            res.redirect('/home');
+            if (USER_ID[0] === 'A') {
+              req.flash(
+                'success',
+                "Welcome back, Admin! We're glad to see you."
+              );
+
+              res.redirect(`/admin/${USER_ID}`);
+            } else if (USER_ID[0] === 'U') {
+              req.flash('success', `Welcome back,  We\'re glad to see you.`);
+              res.redirect(`/user/${USER_ID}`);
+            } else {
+              req.flash('success', `Welcome back,  We\'re glad to see you.`);
+              return res.redirect(`/vendor/${USER_ID}`);
+            }
           } else {
             req.flash('error', 'Invalid email or password');
-            res.redirect('/home/login');
+            return res.redirect('/home/login');
           }
         } else {
           req.flash('error', 'Invalid email or password');
-          res.redirect('/home/login');
+          return res.redirect('/home/login');
         }
       } catch (error) {
         console.error('Error executing query:', error);
         req.flash('error', 'Internal server error');
-        res.redirect('/home/login');
+        return res.redirect('/home/login');
       }
     } else {
       req.flash('error', 'Invalid form data');
-      res.redirect('/home/login');
+      return res.redirect('/home/login');
     }
   } catch (err) {
     console.error('Error connecting to the database', err);
     req.flash('error', 'Internal server error');
-    res.redirect('/home/login');
+    return res.redirect('/home/login');
   } finally {
     if (connection) {
       try {
@@ -185,16 +285,33 @@ app.post('/home/login', async (req, res) => {
 // });
 
 //////////////////////for any invalid route////////////////////////
-app.get('*', (req, res) => {
-  req.flash('error', 'The route is not valid');
-  res.redirect('/home');
-});
+// app.get('*', (req, res) => {
+//   req.flash('error', 'The route is not valid');
+//   res.redirect('/home');
+// });
 
 ////////////////////export required login middleware////////////////////////////////////
 
 // module.exports = { app, mode };
 
 /////////////////////////////////////////////////////////////////
+
+let mockData = [
+  { name: 'Apple' },
+  { name: 'Banana' },
+  { name: 'Cherry' },
+  { name: 'Date' },
+  { name: 'Elderberry' },
+];
+
+app.get('/upload', (req, res) => {
+  res.render('blogger/test_video');
+});
+
+// Route to handle file upload
+app.post('/upload', upload.single('video'), async (req, res) => {
+  console.log(req.file);
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
