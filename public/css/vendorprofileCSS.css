@@ -1,0 +1,171 @@
+body {
+  padding-top: 56px; /* Height of the navbar */
+  font-family: "Arial", sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.offcanvas-body .nav-link {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s;
+}
+
+.offcanvas-body .nav-link:hover,
+.offcanvas-body .nav-link.active {
+  color: #fff;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  animation: fadeIn 1s ease-in;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  width: 200px; /* Increased from 150px to 200px */
+  height: 200px; /* Increased from 150px to 200px */
+  border-radius: 50%;
+  margin-right: 20px;
+  object-fit: cover;
+  animation: bounceIn 1s ease;
+}
+
+.vendor-info h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.vendor-info p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #6c757d;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.buttons button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.buttons button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.about-stall,
+.contact-info {
+  width: 100%;
+  max-width: 45%;
+}
+
+.about-stall h2,
+.contact-info h2 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: bold;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.about-stall ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.about-stall ul li {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 5px;
+  animation: fadeIn 0.5s ease;
+}
+
+.contact-info a {
+  color: #007bff;
+  text-decoration: none;
+  transition: text-decoration 0.3s;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+.navbar-toggler {
+  transition: transform 0.3s;
+}
+
+.navbar-toggler.collapsed .navbar-toggler-icon {
+  animation: rotateIn 0.5s ease;
+}
