@@ -6,44 +6,54 @@
     <link rel="stylesheet" href="../All Page/test.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
         }
+
         .modal-dialog-centered {
             display: flex;
             align-items: center;
             min-height: calc(100% - 1rem);
         }
+
         .modal-content {
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
         .modal-header {
             border-bottom: none;
             padding-bottom: 0;
         }
+
         .modal-title {
             font-size: 1.5rem;
             font-weight: bold;
         }
+
         .btn-close {
             font-size: 1.2rem;
         }
+
         .fixed-size-video {
             width: 100%;
             max-width: 600px;
             height: auto;
             border-radius: 10px;
         }
+
         .modal-body {
             padding: 2rem;
         }
+
         .tags {
             margin-top: 1rem;
         }
+
         .tag {
             display: inline-block;
             background-color: #e2e6ea;
@@ -53,6 +63,7 @@
             margin: 0.2rem;
             font-size: 0.9rem;
         }
+
         .btn-mdb {
             background-color: #007bff;
             color: white;
@@ -62,9 +73,11 @@
             font-size: 1rem;
             transition: background-color 0.3s;
         }
+
         .btn-mdb:hover {
             background-color: #0056b3;
         }
+
         .btn-mdb-secondary {
             background-color: #6c757d;
             color: white;
@@ -74,14 +87,17 @@
             font-size: 1rem;
             transition: background-color 0.3s;
         }
+
         .btn-mdb-secondary:hover {
             background-color: #565e64;
         }
     </style>
 </head>
+
 <body>
     <!-- Button to Open the Modal -->
-    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">Launch Video Modal</button>
+    <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">Launch Video
+        Modal</button>
 
     <!-- Modal Structure -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -100,7 +116,7 @@
                     </video>
                     <div class="w-100">
                         <div class="mb-4 text-center">
-                            <button type="button" class="btn-mdb mb-2">Visit Shop</button>
+                            <button type="button" class="btn btn-dark mb-2">Visit Shop</button>
                             <p class="mt-2">VIDEO_DESCRIPTION</p>
                         </div>
                         <div class="tags">
@@ -110,7 +126,7 @@
                             <span class="tag">Tag3</span>
                         </div>
                         <div class="mt-4 text-center">
-                            <button type="button" class="btn-mdb-secondary">Show on Map</button>
+                            <button type="button" class="btn btn-success">Show on Map</button>
                         </div>
                     </div>
                 </div>
