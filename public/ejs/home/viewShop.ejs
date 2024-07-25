@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Street Food Bangladesh</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"></script>
+    <link href="../../css/viewShop.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+        .bg-image {
+            background-size: cover;
+            background-position: 50% 50%;
+            height: 500px;
+        }
+
+        .mask {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 100%;
+            overflow: hidden;
+            background-attachment: fixed;
+        }
+
+        @media (max-width: 767.98px) {
+            .mask {
+                background-attachment: scroll;
+            }
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            /* Adjust this value as needed */
+            object-fit: cover;
+        }
+
+        .card-custom {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .card-text {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .btn-primary {
+            align-self: center;
+            margin-top: auto;
+        }
+
+        .bg-image {
+            max-height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <section draggable="false" class="overflow-hidden pt-0">
+        <section class="mb-10">
+            <div class="p-5 text-center bg-image" style="background-image: url('<%= viewshop[0].STALL_PIC %>')"
+                aria-controls="#picker-editor" alt="Background Image"></div>
+            <div class="container">
+                <div class="card mx-4 mx-md-5 text-center shadow-5-strong" style="
+              margin-top: -170px;
+              background: hsla(0, 0%, 100%, 0.7);
+              backdrop-filter: blur(30px);
+            ">
+                    <div class="card-body px-4 py-5 px-md-5">
+                        <h1 class="display-3 fw-bold ls-tight mb-4">
+                            <span>The best offer on the market</span>
+                            <br />
+                            <span class="text-primary">for your business</span>
+                        </h1>
+                        <a class="btn btn-primary btn-lg py-3 px-5 mb-2 mb-md-0 me-md-2" href="#" role="button"
+                            aria-controls="#picker-editor" draggable="false" style="min-width: auto">Shop details <i
+                                class="fas fa-cart-arrow-down p-1 ps-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section draggable="false" class="container pt-5">
+        <section class="mb-10 text-center text-lg-start">
+            <h2 class="fw-bold mb-5 text-center">Available Foods</h2>
+            <div class="row gx-lg-3" id="food-cards">
+                <!-- Food cards will be injected here by JavaScript -->
+            </div>
+        </section>
+        <div class="pagination-center">
+            <button id="prev-btn" class="btn btn-primary">Previous</button>
+            <div id="page-numbers"></div>
+            <button id="next-btn" class="btn btn-primary">Next</button>
+        </div>
+    </section>
+    <section draggable="false" class="container pt-5">
+        <section class="mb-10">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-10 col-xl-8 text-center">
+                    <h3 class="fw-bold mb-4">What clients say</h3>
+                </div>
+            </div>
+            <div class="row text-center d-flex align-items-stretch" id="testimonial-cards">
+                <!-- Testimonial cards will be injected here by JavaScript -->
+            </div>
+        </section>
+        <div class="pagination-center">
+            <button id="testimonial-prev-btn" class="btn btn-primary">
+                Previous
+            </button>
+            <div id="testimonial-page-numbers"></div>
+            <button id="testimonial-next-btn" class="btn btn-primary">Next</button>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section draggable="false" class="container pt-5">
+        <section class="mb-10">
+            <div class="row gx-lg-5" id="video-cards">
+                <!-- Video cards will be inserted here by JavaScript -->
+            </div>
+            <div class="pagination-center">
+                <button id="video-prev-btn" class="btn btn-primary">Previous</button>
+                <div id="video-page-numbers"></div>
+                <button id="video-next-btn" class="btn btn-primary">Next</button>
+            </div>
+        </section>
+    </section>
+
+    <script>
+        let foodData = [];
+        let videoData = [];
+
+        const getdata = async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sellerId = urlParams.get('id');
+
+            try {
+                const res = await axios.get(
+                    `http://localhost:3000/home/ViewShop?id=${sellerId}&responseType=json`
+                );
+                foodData = res.data.viewshop;
+                videoData = res.data.video;
+                console.log('foodData', foodData);
+                console.log('videoData', videoData);
+
+                initializeFoodPagination();
+                initializeVideoPagination();
+            } catch (error) {
+                console.log('error', error);
+            }
+        };
+
+        getdata();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFoodPagination();
+            initializeTestimonialsPagination();
+            initializeVideoPagination();
+        });
+
+        function initializeFoodPagination() {
+            const itemsPerPage = 3;
+            let currentPage = 1;
+            const totalPages = Math.ceil(foodData.length / itemsPerPage);
+
+            const foodCardsContainer = document.getElementById('food-cards');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const pageNumbers = document.getElementById('page-numbers');
+
+            function renderFoodItems() {
+                foodCardsContainer.innerHTML = '';
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                const itemsToRender = foodData.slice(start, end);
+
+                itemsToRender.forEach((item) => {
+                    const foodCard = document.createElement('div');
+                    foodCard.classList.add('col-lg-4', 'col-md-12', 'mb-4', 'mb-lg-0');
+                    foodCard.innerHTML = `
+                 <div class="card card-custom">
+    <div class="bg-image hover-overlay ripple ripple-surface-light" data-ripple-color="light">
+        <img src="${item.FOOD_PIC}" class="img-fluid" alt="" loading="lazy">
+        <svg class="position-absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="left: 0; bottom: 0">
+            <path fill="#fff" d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">${item.FOOD_NAME}</h5>
+        <p class="card-text">${item.INGREDIENT}</p>
+        <div class="rating">
+            ${generateStars(item.RATING)}
+        </div>
+        <button class="btn btn-success btn-md">Add to cart</button>
+    </div>
+</div>
+
+                    `;
+                    foodCardsContainer.appendChild(foodCard);
+                });
+            }
+            function generateStars(rating) {
+                let stars = '';
+                for (let i = 1; i <= 5; i++) {
+                    if (i <= rating) {
+                        stars += '<i class="fas fa-star"></i>'; // Filled star
+                    } else {
+                        stars += '<i class="far fa-star"></i>'; // Empty star
+                    }
+                }
+                return stars;
+            }
+
+            function renderPageNumbers() {
+                pageNumbers.innerHTML = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageNumber = document.createElement('button');
+                    pageNumber.classList.add('btn', 'btn-light', 'btn-md', 'me-2');
+                    pageNumber.textContent = i;
+                    pageNumber.addEventListener('click', () => {
+                        currentPage = i;
+                        renderFoodItems();
+                    });
+                    pageNumbers.appendChild(pageNumber);
+                }
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderFoodItems();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderFoodItems();
+                }
+            });
+
+            renderFoodItems();
+            renderPageNumbers();
+        }
+
+        function initializeVideoPagination() {
+            const itemsPerPage = 3;
+            let currentPage = 1;
+            const totalPages = Math.ceil(videoData.length / itemsPerPage);
+
+            const videoCardsContainer = document.getElementById('video-cards');
+            const prevBtn = document.getElementById('video-prev-btn');
+            const nextBtn = document.getElementById('video-next-btn');
+            const pageNumbers = document.getElementById('video-page-numbers');
+
+            function renderVideoItems() {
+                videoCardsContainer.innerHTML = '';
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                const itemsToRender = videoData.slice(start, end);
+
+                itemsToRender.forEach((item) => {
+                    const videoCard = document.createElement('div');
+                    videoCard.classList.add('col-lg-4', 'col-md-12', 'mb-4', 'mb-lg-0');
+                    videoCard.innerHTML = `
+    <div class="card card-custom h-100">
+        <div class="bg-image hover-overlay ripple ripple-surface-light h-100" data-ripple-color="light">
+            <video src="${item.VIDEO_LINKS}" class="img-fluid w-100 h-100" controls poster="${item.IMAGE_LINKS}"></video>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">${item.VIDEO_NAME}</h5>
+            <p class="card-text">${item.VIDEO_DESCRIPTION}</p>
+            <button class="btn btn-primary btn-md">Watch</button>
+        </div>
+    </div>
+            `;
+                    videoCardsContainer.appendChild(videoCard);
+                });
+            }
+
+            function renderPageNumbers() {
+                pageNumbers.innerHTML = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageNumber = document.createElement('button');
+                    pageNumber.classList.add('btn', 'btn-light', 'btn-md', 'me-2');
+                    pageNumber.textContent = i;
+                    pageNumber.addEventListener('click', () => {
+                        currentPage = i;
+                        renderVideoItems();
+                    });
+                    pageNumbers.appendChild(pageNumber);
+                }
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderVideoItems();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderVideoItems();
+                }
+            });
+
+            renderVideoItems();
+            renderPageNumbers();
+        }
+
+        function initializeTestimonialsPagination() {
+            // Add testimonial pagination logic here if needed
+        }
+    </script>
+</body>
+
+</html>
