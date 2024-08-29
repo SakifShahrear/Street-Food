@@ -8,19 +8,19 @@ CREATE SEQUENCE VENDORS_SEQ
   NOMAXVALUE;
 
 -- Create table VENDORS
-CREATE TABLE VENDORS (
-    V_ID VARCHAR2(100) PRIMARY KEY,
-    V_FIRST_NAME VARCHAR2(50) NOT NULL,
-    V_LAST_NAME VARCHAR2(50) NOT NULL,
-    EMAIL VARCHAR2(100) NOT NULL,
-    PHONE VARCHAR2(20) NOT NULL,
-    STALL_NAME VARCHAR2(100) NOT NULL,
-    DISTRICT VARCHAR2(50) NOT NULL,
-    AREA VARCHAR2(200),
-    CITY VARCHAR2(50) NOT NULL,
-    STALL_PIC VARCHAR2(255) NOT NULL,
-    LOCATION_URL VARCHAR2(255) NOT NULL,
-    PASSWORD VARCHAR2(300) NOT NULL
+CREATE TABLE "SYSTEM"."VENDORS" (
+    "V_ID" VARCHAR2(50) NOT NULL ENABLE,
+    "EMAIL" VARCHAR2(100) NOT NULL ENABLE,
+    "PASSWORD" VARCHAR2(300) NOT NULL ENABLE,
+    "TERMS" VARCHAR2(10) NOT NULL ENABLE,
+    "ACCOUNT_TYPE" VARCHAR2(50),
+    "JOIN_DATE" TIMESTAMP (6) DEFAULT SYSTIMESTAMP,
+    "ACTIVE" VARCHAR2(3) DEFAULT 'yes',
+    "SHOP_DATA" "SYSTEM"."SHOP_INFO_TYPE",
+    "PHONE" VARCHAR2(20),
+    "PROFILE_PIC" VARCHAR2(700),
+    CONSTRAINT "VENDORS_PK" PRIMARY KEY ("V_ID") USING INDEX ENABLE,
+    CHECK (ACTIVE IN ('yes', 'no')) ENABLE
 );
 
 -- Create trigger to auto-populate V_ID
@@ -78,19 +78,21 @@ INSERT INTO VENDORS (
     STALL_NAME,
     LOCATION_URL
 ) VALUES (
-    'Seller',
-    'fahim',
-    'fahim',
-    'fahim1288@gmail.com',
-    '01790159919',
-    'dhaka',
-    'Dhaka cantonment',
-    '17/3 west matikata, Dhaka - 1206, Bangladesh',
-    '1111',
-    'on',
-    'https://res.cloudinary.com/da7hqzvvf/image/upload/v1719749049/food/bxazddnypupfto0onl2t.jpg',
-    'GHHGHBGD',
-    'https://www.google.com/maps/@23.82351,90.3926415,16z?entry=ttu'
+    INSERT INTO CUSTOMERS( C_ID, PHONE, EMAIL, ACCOUNT_TYPE, FIRST_NAME, LAST_NAME, DISTRICT, CITY, AREA, PASSWORD, TERM, JOIN_DATE ) VALUES ( 'C_ID:VARCHAR2(100):NOT NULL', 'PHONE:VARCHAR2(20)', 'EMAIL:VARCHAR2(100)', 'ACCOUNT_TYPE:VARCHAR2(50):NOT NULL', 'FIRST_NAME:VARCHAR2(100)', 'LAST_NAME:VARCHAR2(100)', 'DISTRICT:VARCHAR2(100)', 'CITY:VARCHAR2(100)', 'AREA:VARCHAR2(100)', 'PASSWORD:VARCHAR2(300)', 'TERM:VARCHAR2(10)', 'JOIN_DATE:DATE' );
+
+'Seller',
+'fahim',
+'fahim',
+'fahim1288@gmail.com',
+'01790159919',
+'dhaka',
+'Dhaka cantonment',
+'17/3 west matikata, Dhaka - 1206, Bangladesh',
+'1111',
+'on',
+'https://res.cloudinary.com/da7hqzvvf/image/upload/v1719749049/food/bxazddnypupfto0onl2t.jpg',
+'GHHGHBGD',
+'https://www.google.com/maps/@23.82351,90.3926415,16z?entry=ttu'
 );
 
 INSERT INTO VENDORS (

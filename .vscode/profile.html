@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2 class="text-white text-center">Vendor Dashboard</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="orders.html">Orders</a>
+        <a href="services.html">Services</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="logout.html">Logout</a>
+    </div>
+
+    <div class="content">
+        <h1>Profile Information</h1>
+        <form>
+            <div class="mb-3">
+                <label for="vendorName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="vendorName" value="Vendor Name">
+            </div>
+            <div class="mb-3">
+                <label for="vendorEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="vendorEmail" value="vendor@example.com">
+            </div>
+            <div class="mb-3">
+                <label for="vendorPhone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="vendorPhone" value="(123) 456-7890">
+            </div>
+            <div class="mb-3">
+                <label for="vendorPassword" class="form-label">Change Password</label>
+                <input type="password" class="form-control" id="vendorPassword">
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+</body>
+</html>
